@@ -1,5 +1,9 @@
 import streamlit as st
 import pandas as pd
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from scripts.fetch_data import fetch_stock_data
 from scripts.plot_graphs import plot_stock_price
 from scripts.alert import check_price_alert

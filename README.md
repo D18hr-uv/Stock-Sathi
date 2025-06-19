@@ -2,6 +2,7 @@
 This is an industry-grade, end-to-end data analytics project combining real-time data collection, analysis, and visualization.
 An end-to-end data analytics project that fetches real-time stock prices, visualizes price movements, and raises alerts if prices fluctuate beyond a certain threshold.
 
+# Live: https://stock-sathi.streamlit.app/
 ## 🔧 Features
 - Real-time stock price fetching (via yfinance)
 - Interactive price chart (Plotly)

@@ -21,25 +21,25 @@ st.set_page_config(
 st.markdown("""
     <style>
         html, body, [class*="css"] {
-            font-size: 32px !important;
+            font-size: 16px !important;
             color: #111 !important;
         }
         h1, h2, h3, h4 {
-            font-weight: 800;
-            font-size: 48px !important;
+            font-weight: 400;
+            font-size: 24px !important;
         }
         .stButton button, .stDownloadButton button {
-            font-size: 28px !important;
+            font-size: 14px !important;
             padding: 0.8rem 1.6rem;
             border-radius: 12px;
         }
         .stTextInput input, .stSelectbox div div div, .stSlider span {
-            font-size: 28px !important;
+            font-size: 14px !important;
         }
         .metric-box {
             padding: 1.4rem;
             border-radius: 14px;
-            font-weight: 900;
+            font-weight: 450;
             margin-bottom: 1rem;
             text-align: center;
         }

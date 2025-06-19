@@ -21,33 +21,45 @@ st.set_page_config(
 st.markdown("""
     <style>
         html, body, [class*="css"] {
-            font-size: 16px !important;
-            color: #111 !important;
+            font-size: 20px !important;
+            color: #F4F4F4 !important;
         }
-        h1, h2, h3, h4 {
-            font-weight: 400;
-            font-size: 24px !important;
+        h1, h2, h3 {
+            font-weight: 800;
+            font-size: 32px !important;
         }
         .stButton button, .stDownloadButton button {
-            font-size: 14px !important;
-            padding: 0.8rem 1.6rem;
-            border-radius: 12px;
+            font-size: 18px !important;
+            padding: 0.5rem 1.2rem;
+            border-radius: 10px;
         }
         .stTextInput input, .stSelectbox div div div, .stSlider span {
-            font-size: 14px !important;
+            font-size: 18px !important;
         }
+
         .metric-box {
-            padding: 1.4rem;
+            padding: 1rem 1.2rem;
             border-radius: 14px;
-            font-weight: 450;
-            margin-bottom: 1rem;
+            font-weight: 700;
+            margin: 1rem 0.5rem;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            min-width: 200px;
         }
-        .symbol-card { background-color: #d0f0f7; color: #004d40; }
-        .price-card  { background-color: #dcedc8; color: #33691e; }
-        .time-card   { background-color: #ffe0b2; color: #e65100; }
+
+        .symbol-card { background: #1E3A8A; color: #E0F2FE; }
+        .price-card  { background: #166534; color: #D1FAE5; }
+        .time-card   { background: #78350F; color: #FFEDD5; }
+
+        .block-title {
+            margin-top: 2rem;
+            font-size: 28px;
+            font-weight: 800;
+            color: #FACC15;
+        }
     </style>
 """, unsafe_allow_html=True)
+
 
 # ------------------- Sidebar -------------------
 st.sidebar.markdown("## ⚙️ Settings")

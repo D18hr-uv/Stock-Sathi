@@ -64,19 +64,41 @@ st.markdown("""
 # ------------------- Sidebar -------------------
 st.sidebar.markdown("## ⚙️ Settings")
 symbol = st.sidebar.text_input("🔍 Stock Symbol", value="AAPL")
-interval = st.sidebar.selectbox("🕒 Interval", ["1m", "5m", "15m", "1h", "1d"], index=0)
-period = st.sidebar.selectbox("📅 Period", ["1d", "5d", "1mo", "3mo"], index=0)
-threshold = st.sidebar.slider("🚨 Alert Threshold (%)", 1, 10, 5)
+interval = st.sidebar.selectbox("🕒 Interval", ["1m", "5m", "15m", "1h", "1d"], index=0) # Matched to yfinance intervals
+period = st.sidebar.selectbox("📅 Period", ["1d", "5d", "1mo", "3mo", "6mo", "1y"], index=0) # Matched to yfinance periods
+threshold = st.sidebar.slider("🚨 Alert Threshold (%)", 1, 20, 5) # Increased threshold range
+enable_real_time = st.sidebar.checkbox("🚀 Enable Real-Time Updates", value=True)
+refresh_interval_seconds = 0
+if enable_real_time:
+    if interval == "1m":
+        refresh_interval_seconds = st.sidebar.select_slider(
+            "⏱️ Refresh Interval (seconds)",
+            options=[10, 20, 30, 60], # More frequent for 1m data
+            value=30
+        )
+    else:
+        refresh_interval_seconds = st.sidebar.select_slider(
+            "⏱️ Refresh Interval (seconds)",
+            options=[60, 120, 300, 600], # Less frequent for larger intervals
+            value=120
+        )
+
+
+# Placeholder for data to persist across reruns if needed for comparison
+if 'previous_data' not in st.session_state:
+    st.session_state.previous_data = pd.DataFrame()
 
 # ------------------- Header -------------------
 st.title("📊 Real-Time Stock Analysis Dashboard")
 st.markdown("Get **massively zoomed-in**, high-contrast updates on live stock prices and alerts.")
 
-# ------------------- Fetch Data -------------------
+# Main content area
 if symbol:
-    data = fetch_stock_data(symbol, interval, period)
+    # Fetch data: pass the real_time flag
+    data = fetch_stock_data(symbol, interval, period, real_time=enable_real_time)
 
     if not data.empty:
+        # Always use the latest available price from the fetched data
         last_price = data['Close'].iloc[-1]
         prev_price = data['Close'].iloc[-2] if len(data) > 1 else last_price
         price_change = last_price - prev_price
@@ -135,3 +157,11 @@ if symbol:
 
     else:
         st.warning("⚠️ No data found for this symbol. Try another.")
+else:
+    st.info("👈 Enter a stock symbol in the sidebar to begin.")
+
+# Auto-refresh mechanism
+if enable_real_time and refresh_interval_seconds > 0:
+    import time
+    time.sleep(refresh_interval_seconds)
+    st.experimental_rerun()

@@ -63,7 +63,22 @@ st.markdown("""
 
 # ------------------- Sidebar -------------------
 st.sidebar.markdown("## ⚙️ Settings")
-symbol = st.sidebar.text_input("🔍 Stock Symbol", value="AAPL")
+
+# Stock symbol selection
+COMMON_SYMBOLS = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "NVDA", "META", "Other (Specify below)"]
+selected_option = st.sidebar.selectbox("🔍 Stock Symbol", COMMON_SYMBOLS, index=0)
+
+symbol = ""
+if selected_option == "Other (Specify below)":
+    custom_symbol = st.sidebar.text_input("Enter Custom Stock Symbol", value="SPY").upper()
+    if custom_symbol: # Ensure custom symbol is not empty
+        symbol = custom_symbol
+    else: # If custom is selected but field is empty, maybe default to first common or show error
+        st.sidebar.warning("Please enter a custom symbol or select one from the list.")
+        symbol = None # Or a default like "AAPL"
+else:
+    symbol = selected_option
+
 interval = st.sidebar.selectbox("🕒 Interval", ["1m", "5m", "15m", "1h", "1d"], index=0) # Matched to yfinance intervals
 period = st.sidebar.selectbox("📅 Period", ["1d", "5d", "1mo", "3mo", "6mo", "1y"], index=0) # Matched to yfinance periods
 threshold = st.sidebar.slider("🚨 Alert Threshold (%)", 1, 20, 5) # Increased threshold range

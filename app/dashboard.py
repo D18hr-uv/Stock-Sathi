@@ -177,6 +177,7 @@ else:
 
 # Auto-refresh mechanism
 if enable_real_time and refresh_interval_seconds > 0:
-    import time
-    time.sleep(refresh_interval_seconds)
-    st.experimental_rerun()
+    # Use Streamlit's experimental functionality for auto-refresh
+    st.experimental_set_query_params(refresh="true")
+    st.rerun()
+
